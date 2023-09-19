@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -50,9 +51,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    // dagger2
-    implementation("com.google.dagger:dagger:2.45")
-    kapt("com.google.dagger:dagger-compiler:2.45")
+    // hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+
     //livedata
     val lifecycleVersion = "2.6.2"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
@@ -77,4 +79,9 @@ dependencies {
     // glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

@@ -7,9 +7,11 @@ import com.mehedisoftdev.productsapps.api.ProductsApi
 import com.mehedisoftdev.productsapps.db.ProductDatabase
 import com.mehedisoftdev.productsapps.models.Product
 import com.mehedisoftdev.productsapps.utils.Network
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class ProductRepository @Inject constructor(
+    @ApplicationContext
     private val context: Context,
     private val productsApi: ProductsApi,
     private val productDatabase: ProductDatabase
@@ -17,6 +19,8 @@ class ProductRepository @Inject constructor(
     private var _products = MutableLiveData<List<Product>>()
     val products: LiveData<List<Product>>
         get() = _products
+
+
 
     suspend fun getProducts() {
         if(Network.isOnline(context)) {

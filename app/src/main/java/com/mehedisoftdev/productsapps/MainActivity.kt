@@ -9,14 +9,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.mehedisoftdev.productsapps.adapters.ProductListAdapter
 import com.mehedisoftdev.productsapps.databinding.ActivityMainBinding
 import com.mehedisoftdev.productsapps.viewmodels.MainViewModel
-import com.mehedisoftdev.productsapps.viewmodels.GeneralViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     private lateinit var mainViewModel: MainViewModel
-    @Inject
-    lateinit var mainViewModelFactory: GeneralViewModelFactory
+
 
     // adapter
     private lateinit var productListAdapter: ProductListAdapter
@@ -31,9 +32,9 @@ class MainActivity : AppCompatActivity() {
         productListAdapter = ProductListAdapter()
         binding.productRecyclerView.adapter = productListAdapter
 
-        (application as ProductApplication).applicationComponent.inject(this)
 
-        mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
+
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         mainViewModel.products.observe(this, Observer {
             productListAdapter.submitList(it)
