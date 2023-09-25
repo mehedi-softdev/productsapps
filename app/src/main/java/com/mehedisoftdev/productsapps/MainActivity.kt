@@ -6,8 +6,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.mehedisoftdev.productsapps.adapters.ProductListAdapter
 import com.mehedisoftdev.productsapps.databinding.ActivityMainBinding
+import com.mehedisoftdev.productsapps.utils.InterstitialAdManager
 import com.mehedisoftdev.productsapps.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -16,29 +21,24 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var mainViewModel: MainViewModel
-
-
-    // adapter
-    private lateinit var productListAdapter: ProductListAdapter
+    lateinit var mAdView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
 
-        // setup list adapter
-        binding.productRecyclerView.layoutManager = GridLayoutManager(this, 2)
-        binding.productRecyclerView.setHasFixedSize(true)
-        productListAdapter = ProductListAdapter()
-        binding.productRecyclerView.adapter = productListAdapter
-
-
-
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
-        mainViewModel.products.observe(this, Observer {
-            productListAdapter.submitList(it)
-        })
-
+    override fun onStart() {
+        super.onStart()
+        // load ads
+        MobileAds.initialize(this) {}
+        val adRequest = AdRequest.Builder().build()
+        mAdView = AdView(this)
+//        test id
+        mAdView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
+        binding.adView.loadAd(adRequest)
+        // interstitial ads
+        InterstitialAdManager.loadInterstitialAd(this, adRequest)
     }
 }
