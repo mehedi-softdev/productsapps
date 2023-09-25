@@ -9,5 +9,15 @@
         android:id="@+id/productsFragment"
         android:name="com.mehedisoftdev.productsapps.ProductsFragment"
         android:label="fragment_products"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_productsFragment_to_particularProductViewFragment"
+            app:destination="@id/particularProductViewFragment"
+            app:popUpTo="@id/productsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/particularProductViewFragment"
+        android:name="com.mehedisoftdev.productsapps.ParticularProductViewFragment"
+        android:label="fragment_particular_product_view"
+        tools:layout="@layout/fragment_particular_product_view" />
 </navigation>

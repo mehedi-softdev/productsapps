@@ -39,7 +39,7 @@ class ProductsFragment : Fragment() {
         // setup list adapter
         binding.productRecyclerView.layoutManager = GridLayoutManager(context, 2)
         binding.productRecyclerView.setHasFixedSize(true)
-        productListAdapter = ProductListAdapter()
+        productListAdapter = ProductListAdapter(requireActivity())
         binding.productRecyclerView.adapter = productListAdapter
 
 
