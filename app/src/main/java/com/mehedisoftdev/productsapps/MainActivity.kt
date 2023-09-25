@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        // load ads
-        MobileAds.initialize(this) {}
+
         val adRequest = AdRequest.Builder().build()
         mAdView = AdView(this)
 //        test id
