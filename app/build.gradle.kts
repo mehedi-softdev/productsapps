@@ -83,6 +83,9 @@ dependencies {
     // ads (admob)
     implementation("com.google.android.gms:play-services-ads:22.4.0")
 
+    val paging_version = "3.2.1"
+    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
+
 }
 
 // Allow references to generated code
